@@ -1,0 +1,17 @@
+- if @post && @post.errors.any?
+  %h4 Ooops...
+  %ul
+    - post.errors.full_messages.each do |error|
+      %li= error
+
+= form_tag action, method: :get do
+  .mb-3
+    = label_tag :title
+    = text_field_tag :title, post.title, class: 'form-control'
+
+  .mb-3
+    = label_tag :body
+    = text_area_tag :body, post.body, class: 'form-control'
+
+  %button.btn.btn-primary(type="submit") Submit
+

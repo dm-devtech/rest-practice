@@ -1,0 +1,15 @@
+%h1 Posts
+
+- @posts.each do |post|
+  %article
+    %h2= post.title
+
+    .body
+      = post.body
+
+    %footer
+      %a{href: "/edit-posts/#{post.id}"} Edit
+      %a{href: "/delete-posts/#{post.id}"} Delete
+
+%a{href: new_posts_path} New Post
+

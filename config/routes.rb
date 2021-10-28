@@ -1,3 +1,10 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  get '/posts', to: 'posts#index'
+  get '/new-posts', to: 'posts#new', as: 'new_posts'
+  get '/make-posts', to: 'posts#create'
+  get '/edit-posts/:id', to: 'posts#edit', as: 'edit_posts'
+  get '/update-posts/:id', to: 'posts#update', as: 'update_posts'
+  get '/delete-posts/:id', to: 'posts#destroy', as: 'delete_posts'
 end
+
