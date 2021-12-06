@@ -4,14 +4,22 @@
     - post.errors.full_messages.each do |error|
       %li= error
 
-= form_tag action, method: :get do
+= form_for post do |f|
   .mb-3
-    = label_tag :title
-    = text_field_tag :title, post.title, class: 'form-control'
+    = f.label :title
+    = f.text_field :title, class: 'form-control'
 
   .mb-3
-    = label_tag :body
-    = text_area_tag :body, post.body, class: 'form-control'
+    = f.label :body
+    = f.text_area :body, class: 'form-control'
+
+  = f.fields_for :taggings do |tagging|
+    = tagging.hidden_field :id
+    =  tagging.fields_for :tag do |tag|
+      = tag.hidden_field :id
+      .mb-3
+        = tag.label :name
+        = tag.text_field :name, class: 'form-control'
 
   %button.btn.btn-primary(type="submit") Submit
 

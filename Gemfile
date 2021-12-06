@@ -8,6 +8,8 @@ gem 'bootsnap', '>= 1.4.4', require: false
 
 group :development, :test do
   gem 'pry-byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'capybara'
+  gem "minitest-rails", "~> 6.1.0"
 end
 
 group :development do

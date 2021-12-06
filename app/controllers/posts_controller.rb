@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.all
+    @posts = Post.includes(:tags)
   end
 
   def new
@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(title: params[:title], body: params[:body])
+    @post = Post.new(post_params)
 
     if @post.save
       redirect_to posts_path
@@ -20,15 +20,13 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    2.times { @post.taggings << @post.taggings.build(tag: Tag.new) }
   end
 
   def update
     @post = Post.find(params[:id])
 
-    @post.title = params[:title]
-    @post.body = params[:body]
-
-    if @post.save
+    if @post.update(post_params)
       redirect_to posts_path
     else
       render :edit
@@ -39,6 +37,11 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy!
     redirect_to posts_path
+  end
+
+  private
+  def post_params
+    params.require(:post).permit(:title, :body, :taggings_attributes => [:id, :tag_attributes => [:id, :name]])
   end
 
 end

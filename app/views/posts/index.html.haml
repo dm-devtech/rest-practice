@@ -4,12 +4,23 @@
   %article
     %h2= post.title
 
+
+    %header
+      %h3 Tagged as
+      %ul
+        - post.tags.each do |tag|
+          %li= tag.name
+
     .body
       = post.body
 
-    %footer
-      %a{href: "/edit-posts/#{post.id}"} Edit
-      %a{href: "/delete-posts/#{post.id}"} Delete
+    %h3 leave a comment
 
-%a{href: new_posts_path} New Post
+    = link_to "new comment"
+
+    %footer
+      %a{href: edit_post_path(post)} Edit
+      = link_to "Delete", post_path(post), method: :delete
+
+%a{href: new_post_path} New Post
 
